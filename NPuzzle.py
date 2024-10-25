@@ -63,7 +63,7 @@ def NPuzzle(n):
         check = manhattanDistance(optimalNode.puzzle)
 
         if check == 0:
-            return optimalNode
+            return optimalNode, [optimalNode.gn, len(exploredSet)]
 
         else:
             # generate children
@@ -73,19 +73,21 @@ def NPuzzle(n):
             for childNode in newFrontiers:
                 frontier.push(childNode)
 
-    return
+    return 
 
 
 if __name__ == "__main__":
     start_time = time.time()
     
-    on = NPuzzle(4)
+    node, stats = NPuzzle(4)
 
     end_time = time.time()
     execution_time = end_time - start_time  
 
     print(execution_time)
 
-    while on is not None:
-        on.print_node()
-        on = on.parent
+    while node is not None:
+        node.print_node()
+        node = node.parent
+
+    print(stats)

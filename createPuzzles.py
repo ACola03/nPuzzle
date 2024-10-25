@@ -8,6 +8,8 @@ Using the disorder parameter.
 
 from createPuzzle import createPuzzle
 from calculateDisorder import calculateDisorder
+from manhattanDistance import manhattanDistance
+from misplacedTiles import misplacedTiles
 
 
 # create N(100) puzzles
@@ -30,7 +32,8 @@ def createPuzzles(count, n):
 
         disorderParameter = calculateDisorder(puzzle)
 
-        if disorderParameter % 2 == 0 and disorderParameter <= 25:
+        # misplacedTiles(puzzle) <= 7
+        if disorderParameter % 2 == 0 and disorderParameter <= 12:
             print(disorderParameter)
             puzzles.append(puzzle)
 

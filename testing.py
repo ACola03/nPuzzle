@@ -14,9 +14,8 @@ from node import node
 from priorityQueue import priorityQueue
 from findBlank import findBlank
 from manhattanDistance import manhattanDistance
-import numpy as np
-from calculateDisorder import calculateDisorder
 import time
+from misplacedTiles import misplacedTiles
 
 def NPuzzle(n):
     """
@@ -26,71 +25,70 @@ def NPuzzle(n):
     """
 
     # loop for heuristic afterwards
+    results = []
 
     # create 1 puzzles
     puzzles = createPuzzles(1, n)
-
     print((puzzles[0]))
 
-    # find blank tile
-    blank = findBlank(puzzles[0])
+    for i in ["1"]:
 
-    # calculate an example heuristic for this puzzle
-    hn = manhattanDistance(puzzles[0])
+        # find blank tile
+        blank = findBlank(puzzles[0])
 
-    # create the exploredSet
-    exploredSet = set()
+        # calculate an example heuristic for this puzzle
+        hn = misplacedTiles(puzzles[0])
 
-    # create the frontier pq
-    frontier = priorityQueue()
+        # create the exploredSet
+        exploredSet = set()
 
-    # create the intitial puzzle node
-    initialState = node(None, puzzles[0], blank, None, 0, hn)
+        # create the frontier pq
+        frontier = priorityQueue()
 
-    initialState.print_node()
+        # create the intitial puzzle node
+        initialState = node(None, puzzles[0], blank, None, 0, hn)
 
-    # add initialState to pq
-    frontier.push(initialState)
+        initialState.print_node()
 
-    # if not goal state continue until pq is empty even though this is excessive
-    while not frontier.is_empty():
-        
-        # remove from frontier
-        optimalNode = frontier.pop()
+        # add initialState to pq
+        frontier.push(initialState)
 
-        # add to exploredSet
-        exploredSet.add(tuple((optimalNode.puzzle).flatten()))
+        # if not goal state continue until pq is empty even though this is excessive
+        while not frontier.is_empty():
+                
+            # remove from frontier
+            optimalNode = frontier.pop()
 
-        # check if goalState 
-        check = manhattanDistance(optimalNode.puzzle)
+            # add to exploredSet
+            exploredSet.add(tuple((optimalNode.puzzle).flatten()))
 
-        if check == 0:
-            print("a")
-            return optimalNode
+            # check if goalState 
+            check = misplacedTiles(optimalNode.puzzle)
 
-        else:
-            # generate children
-            newFrontiers = generateChilden(optimalNode, exploredSet, n, "2")
+            if check == 0:
+                results.append([optimalNode.gn, len(exploredSet)])
+                print("good")
+                break
 
-            # add these to the frontier
-            for childNode in newFrontiers:
-                frontier.push(childNode)
+            else:
+                # generate children
+                newFrontiers = generateChilden(optimalNode, exploredSet, n, i)
 
-    print("empty")
+                # add these to the frontier
+                for childNode in newFrontiers:
+                    frontier.push(childNode)
 
-    return
+    return results
 
 
 if __name__ == "__main__":
     start_time = time.time()
     
-    on = NPuzzle(4)
+    results = NPuzzle(4)
 
     end_time = time.time()
     execution_time = end_time - start_time  
 
     print(execution_time)
 
-    while on is not None:
-        on.print_node()
-        on = on.parent
+    print(results)
