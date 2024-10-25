@@ -66,7 +66,8 @@ def generateChilden(currentNode, exploredSet, n, heuristic):
         
             # check if this new node has already been explored: if not, add it to newChildren
             # we don't want to add a node to the frontier if already explored
-            if tuple((childNode.puzzle).flatten()) not in exploredSet:
+            # the None checks if the generated child is unsolveable
+            if childNode is not None and tuple((childNode.puzzle).flatten()) not in exploredSet:
                 newChildren.append(childNode) 
 
     # the nodes in newChildren will be added to frontier pq

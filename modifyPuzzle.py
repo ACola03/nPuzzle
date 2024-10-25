@@ -11,6 +11,7 @@ from node import node
 from manhattanDistance import manhattanDistance
 from misplacedTiles import misplacedTiles
 from swap import swap
+from calculateDisorder import calculateDisorder
 
 def modifyPuzzle(parentNode, newX, newY, action, heuristic):
     
@@ -38,6 +39,13 @@ def modifyPuzzle(parentNode, newX, newY, action, heuristic):
     # now modify the puzzle by swapping tiles
     # the blank tile is swapped with [newX, newY]
     modifiedPuzzle[parentNode.blank[0]][parentNode.blank[1]], modifiedPuzzle[newX][newY] = modifiedPuzzle[newX][newY], modifiedPuzzle[parentNode.blank[0]][parentNode.blank[1]]
+
+    # calculate disorder for new puzzle
+    disorderParameter = calculateDisorder(modifiedPuzzle)
+
+    # only generate node if its solveable
+    if disorderParameter % 2 != 0:
+        return None
 
     # now calculate the heuristic for the new puzzle
     if heuristic == "1":

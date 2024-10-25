@@ -11,6 +11,7 @@ Puzzles until 100 are solveable.
 """
 
 from createPuzzle import createPuzzle
+from findBlank import findBlank
 import numpy as np
 
 def calculateDisorder(puzzle):
@@ -34,11 +35,19 @@ def calculateDisorder(puzzle):
             if (flat[j] != 0) and (flat[i] > flat[j]):
                 disorderParameter = disorderParameter + 1
 
+    # an extra check
+    # if the dimension is even, add 1 if blank in first or third row
+    if len(flat) % 2 == 0:
+        blank = findBlank(puzzle)
+        
+        if blank[0] % 2 == 0:
+            disorderParameter = disorderParameter + 1
+
     return disorderParameter
 
 # Driver: 
 if __name__ == "__main__":
-    puzzle = createPuzzle(3)
+    puzzle = createPuzzle(3)    
     disorderParameter = calculateDisorder(puzzle)
 
     print(puzzle)

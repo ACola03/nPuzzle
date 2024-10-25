@@ -12,17 +12,6 @@ Element-wise subtraction and summation.
 import numpy as np
 from createPuzzle import createPuzzle
 
-correctPositions = {
-    1: np.array([0,0]),
-    2: np.array([0,1]),
-    3: np.array([0,2]),
-    4: np.array([1,0]),
-    5: np.array([1,1]),
-    6: np.array([1,2]),
-    7: np.array([2,0]),
-    8: np.array([2,1])
-}
-
 def manhattanDistance(puzzle):
     """
     1. We ignore the location of tile 0
@@ -45,6 +34,14 @@ def manhattanDistance(puzzle):
     dimension = len(puzzle)
     manDis = 0
 
+    # define the correct positions
+    correctPositions = {}
+
+    for i in range(dimension**2-1):
+      row = i // dimension
+      column = i % dimension
+      correctPositions[i+1] = np.array([row,column])
+
     for row in range(dimension):
         for column in range(dimension):
             
@@ -57,8 +54,9 @@ def manhattanDistance(puzzle):
 
 # Driver:
 if __name__ == "__main__":
-    puzzle = createPuzzle(3)
+    puzzle = createPuzzle(5)    
+    print(puzzle)
+
     md = manhattanDistance(puzzle)
 
-    print(puzzle)
     print(md)
