@@ -30,8 +30,8 @@ def createPuzzles(count, n):
 
         disorderParameter = calculateDisorder(puzzle)
 
-        if disorderParameter % 2 == 0:
-            #print(disorderParameter)
+        if disorderParameter % 2 == 0 and disorderParameter <= 25:
+            print(disorderParameter)
             puzzles.append(puzzle)
 
     return puzzles

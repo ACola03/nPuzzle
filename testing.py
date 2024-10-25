@@ -16,6 +16,7 @@ from findBlank import findBlank
 from manhattanDistance import manhattanDistance
 import numpy as np
 from calculateDisorder import calculateDisorder
+import time
 
 def NPuzzle(n):
     """
@@ -81,7 +82,14 @@ def NPuzzle(n):
 
 
 if __name__ == "__main__":
+    start_time = time.time()
+    
     on = NPuzzle(4)
+
+    end_time = time.time()
+    execution_time = end_time - start_time  
+
+    print(execution_time)
 
     while on is not None:
         on.print_node()

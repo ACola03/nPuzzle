@@ -36,12 +36,13 @@ def calculateDisorder(puzzle):
                 disorderParameter = disorderParameter + 1
 
     # an extra check
-    # if the dimension is even, add 1 if blank in first or third row
+    # if the dimension is even, the row number of blank to disorder
     if len(flat) % 2 == 0:
         blank = findBlank(puzzle)
-        
-        if blank[0] % 2 == 0:
-            disorderParameter = disorderParameter + 1
+        disorderParameter = disorderParameter + (blank[0] + 1)
+
+        #if (blank[0] + 1) % 2 == 0:
+        #    disorderParameter = disorderParameter + 1
 
     return disorderParameter
 
